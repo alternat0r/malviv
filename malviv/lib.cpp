@@ -1,8 +1,12 @@
 
-
+#include "stdafx.h"
 #include <Windows.h>
 #include <TlHelp32.h>
 #include <string.h>
+#include <stdio.h>
+#include <exception>
+
+using namespace std;
 
 void TerminateProcessName(const char *FileName)
 {
@@ -14,8 +18,7 @@ void TerminateProcessName(const char *FileName)
     {
         if (strcmp((const char*)pEntry.szExeFile, FileName) == 0)
         {
-            HANDLE hProcess = OpenProcess(PROCESS_TERMINATE, 0,
-                                          (DWORD) pEntry.th32ProcessID);
+            HANDLE hProcess = OpenProcess(PROCESS_TERMINATE, 0, (DWORD) pEntry.th32ProcessID);
             if (hProcess != NULL)
             {
                 TerminateProcess(hProcess, 9);
@@ -26,3 +29,32 @@ void TerminateProcessName(const char *FileName)
     }
     CloseHandle(hSnapShot);
 }
+
+int rm_file(const char *FileName)
+{
+	try
+	{
+		if ( remove(FileName) != 0 )
+		{
+#ifdef DEBUG
+	OutputDebugString(L"rm_file(): Unable to delete the file.");
+#endif
+		} else 
+		{
+#ifdef DEBUG
+	OutputDebugString(L"rm_file(): Deleted done.");
+#endif
+		}
+	}
+	catch (int x)
+	{
+#ifdef DEBUG
+		char *err;
+		sprintf_s(err, "rm_file(): Something wrong with rm_file(); %s", x);
+	OutputDebugString(err);
+#endif
+		return x;
+	}
+	return 0;
+}
+

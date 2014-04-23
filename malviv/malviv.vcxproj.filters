@@ -27,6 +27,9 @@
     <ClInclude Include="lib.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="config.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
