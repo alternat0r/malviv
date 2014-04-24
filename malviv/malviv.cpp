@@ -7,6 +7,7 @@
 int _tmain(int argc, _TCHAR* argv[])
 {
 	printf("Welcome to malviv.");
+
 	return 0;
 }
 
